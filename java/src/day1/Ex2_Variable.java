@@ -5,7 +5,8 @@ public class Ex2_Variable {
 	public static void main(String[] args) {
 		//변수 선언 방법 : 타입 변수명;
 		//변수 초기화 방법1 (변수 선언 및 초기화 같이) : 타입 변수명 = 초기값;
-		//변수 초기화 방법2 (변수 선언 후 초기화) = 타입 변수명; 
+		//변수 초기화 방법2 (변수 선언 후 초기화) :
+		//타입 변수명; 
 		//변수명 = 초기값;		
 		byte num1 = 1; //십진수 1을 저장
 		short num2 = 020; //8진수 20을 저장, 십진수로 16
@@ -32,6 +33,7 @@ public class Ex2_Variable {
 		//int int; //예약어 사용 에러
 		//int %num8; // _또는 $가 아니기때문에 에러
 		int $num7;
+		$num7 = 7;
 		
 
 	}
