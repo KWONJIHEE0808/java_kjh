@@ -7,7 +7,7 @@ public class Hello {
 	 * 주석2
 	 */
 	// 한줄 주석은 주석기호부터 라인끝까지
-	/* println(문자열) : 문자열을 콘솔에 출력한 후 줄바꿈을 함
+	/* println(문자열) : 문자열을 콘솔에 출력한 후 줄바꿈을 함(엔터)
 	 * print(문자열) : 문자열을 콘솔에 출력
 	 */
 	public static void main(String[] args) {
@@ -16,5 +16,4 @@ public class Hello {
 		System.out.println("Hello World!!"); 
 		System.out.print("Hello World!!"); 
 	}
-
 }
