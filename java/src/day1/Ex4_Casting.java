@@ -47,6 +47,8 @@ public class Ex4_Casting {
 		System.out.println(num5_1);
 		System.out.println(num5_2);
 		System.out.println(num5_3);
+		//정수를 실수로 자동 변환 하면 정밀도가 떨어질 수 있다. ex) int > float
+		//int > float 보단 int > double로 변환하는게 좋음
 
 	}
 
