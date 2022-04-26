@@ -18,7 +18,6 @@ public class Ex10_Test1 {
 		String str = (num % 2 ==0)?"짝수" : "짝수가 아님";
 		System.out.println(num + "는 " + str);
 		
-		
 	}
 
 }
