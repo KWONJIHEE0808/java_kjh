@@ -26,7 +26,7 @@ public class Ex4_If1 {
 		}else if(ch == '%') {
 			System.out.println(""+num1 + ch + num2 + "=" +(num1 % num2));
 		}else {
-			System.out.println("잘못된 산술 연산자입니다");
+			System.out.println(ch + "는 잘못된 산술 연산자입니다");
 		}
 	    
 		scan.close();
