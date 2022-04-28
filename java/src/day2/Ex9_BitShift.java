@@ -13,8 +13,9 @@ public class Ex9_BitShift {
 		  ex) -4 >> 1 = 11111110 -> -2
     		  -4>>> 1 = 01111111
        
+     
+       
         */
-		
 		byte num1 = 3;
 		int num2 = -4;
 		
