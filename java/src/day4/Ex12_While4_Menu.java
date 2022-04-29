@@ -22,7 +22,7 @@ public class Ex12_While4_Menu {
 		 */
 		Scanner scan = new Scanner(System.in);
 		
-		int menu = 1;
+		int menu = 5;
 		//메뉴들이 1~5로 구성되어있어서 그냥 설정한 값, 5만 아니면됨
 		
 		while(menu!=5) {
