@@ -3,11 +3,12 @@ package day8;
 public class Ex4_Method4_Swap {
 
 	public static void main(String[] args) {
-	    Test num1 = new Test(10), num2 = new Test(20);
+		/*Test num1 = new Test(10), num2 = new Test(20);
+		swap1(num1, num2);
 		System.out.println("swap 메소드 - 전 num1 : "+num1+", num2 : "+num2);
 		swap2(num1, num2);
 		System.out.println("swap 메소드 - 후 num1 : "+num1+", num2 : "+num2);
-		/* 매개변수가 기본 타입 변수일 경우, 메소드 안에서 열심히 작업해도 원본은 안바뀜
+		   매개변수가 기본 타입 변수일 경우, 메소드 안에서 열심히 작업해도 원본은 안바뀜
 		 * 매개변수가 참조 타입 변수일 경우, 메소드 안에서 원본이 바뀔수 있음
 		 */
 
