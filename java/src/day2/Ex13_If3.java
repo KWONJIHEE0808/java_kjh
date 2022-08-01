@@ -12,13 +12,9 @@ public class Ex13_If3 {
 
 		if(num == 0) {
 			System.out.println(num + "는 0");
-	    }
-		
-		else if(num > 0) {
+	    }else if(num > 0) {
 			System.out.println(num + "는 양수");
-		}
-		
-		else {
+		}else {
 			System.out.println(num + "는 음수");
 		}
 		

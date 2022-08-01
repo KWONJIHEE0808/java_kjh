@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>practice</title>
+	<script src="../js/jquery.js"></script>
+	<style>
+		.box{
+			height: 100px; background-color: orange;
+		}
+		.close{
+			font-size: 16px; border: 1px solid red;
+			cursor: pointer; display: inline-block; 
+			width: 20px;line-height: 20px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<button class="btn">클릭</button>
+	<div class="box">
+		<span class="close">X</span>
+		<input type="checkbox" class="바나나"> 바나나
+		<input type="checkbox" class="사과"> 사과
+		<input type="checkbox" class="오렌지"> 오렌지
+	</div>
+	<script>
+		$('.btn').click(function(){
+			$('.box').show()
+		})
+		$('.close').click(function(){
+			$('.box').hide()
+		})
+		$('.바나나').click(function(){
+			alert('바나나')
+		})
+
+		$('.사과').click(function(){
+			alert('사과')
+		})
+		$('.오렌지').click(function(){
+			alert('오렌지')
+		})
+		$('.오렌지').click(function(){
+			alert('체크가 해제되었습니다')
+		})
+
+		
+	</script>
+</body>
+</html>

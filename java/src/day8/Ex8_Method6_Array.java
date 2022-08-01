@@ -8,7 +8,7 @@ public class Ex8_Method6_Array {
 		int n = 3;
 		int num = 3;
 		printArray(arr);
-		System.out.println(contains(arr,num));
+		System.out.println(contains(arr, arr.length, num));
 		System.out.println(contains(arr, n, num));
 	}
 	

@@ -118,6 +118,7 @@ public class Ex5_Array5_Baseball {
 				System.out.print("O");
 			}System.out.println(" ");				
 		}while(s<3);
+		
 		scan.close();
 		
 

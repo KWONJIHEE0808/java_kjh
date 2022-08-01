@@ -16,18 +16,17 @@ public class Ex5_Break2 {
 		 */
 		Scanner scan = new Scanner(System.in);
 		
-		int i, num;
+		int num;
 		for(;;) {
 			System.out.println("양의 정수 입력 : ");
 			num = scan.nextInt();
 			if(num<0) {
 				break;
 			}System.out.println(num);
-			
+		scan.close();	
 		}
 		//for{;;} 안에를 안 적으면 무한루프
 		
-		scan.close();
 		
 	}
 

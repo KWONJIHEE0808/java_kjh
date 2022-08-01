@@ -1,7 +1,5 @@
 package day4;
 
-import java.util.Scanner;
-
 public class Ex6_Break3_LCM {
 
 	public static void main(String[] args) {

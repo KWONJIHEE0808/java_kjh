@@ -60,7 +60,7 @@ public class Ex11_BaseBallGame {
 		}System.out.println(" ");
 
 		}
-
+		scan.close();
 	}
 
 }

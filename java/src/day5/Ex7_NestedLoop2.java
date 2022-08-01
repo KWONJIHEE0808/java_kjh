@@ -10,12 +10,14 @@ public class Ex7_NestedLoop2 {
 		 * ****
 		 * *****
 		 */
-		int num = 7;
+		int num =7;
 		for(int i=1; i<=num; i++) {
 			for(int j=1; j<=i; j++) {
 				System.out.print("*");
-			}
-		}System.out.println();
+				}
+			System.out.println();
+		}
+		
 		/* 아래와 같이 출력되도록 코드를 작성하세요.
 		 *     *
 		 *    **
