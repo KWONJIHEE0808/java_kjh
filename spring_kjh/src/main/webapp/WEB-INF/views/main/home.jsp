@@ -35,12 +35,6 @@
 				}
 			})
 		})
-	
-	
-		$(function(){
-			let age = '${age}';
-			age = parseInt(age) + 10;
-			console.log(age)
-		})
 	</script>
+	${user.id} <!-- user.getId() -->
 </div>
