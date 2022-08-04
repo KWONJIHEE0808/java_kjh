@@ -6,12 +6,8 @@ import kr.green.spring.vo.MemberVO;
 
 public interface MemberDAO {
 
-	String selectEmail(@Param("me_id")String id);
+	MemberVO selectMember(@Param("me_id")String id);
 
-	MemberVO selectMemberVO(@Param("me_id")String id);
-
-	MemberVO selectMemberVO2(@Param("member")MemberVO member);
-
-
+	void insertMember(@Param("m")MemberVO member);
 
 }
