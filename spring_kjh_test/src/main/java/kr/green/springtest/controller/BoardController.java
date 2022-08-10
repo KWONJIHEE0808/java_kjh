@@ -17,7 +17,7 @@ import kr.green.springtest.vo.MemberVO;
 
 @Controller
 public class BoardController {
-
+	
 	@Autowired
 	BoardService boardService;
 	
@@ -29,25 +29,40 @@ public class BoardController {
     return mv;
 	}
 	@RequestMapping(value="/board/select/{bd_num}", method=RequestMethod.GET)
-	public ModelAndView boardSelectGet(ModelAndView mv, @PathVariable("bd_num") int bd_num){
+	public ModelAndView boardSelectGet(ModelAndView mv,
+			@PathVariable("bd_num")int bd_num){
 		boardService.updateViews(bd_num);
-		BoardVO board = boardService.getBoard(bd_num);		
+		BoardVO board = boardService.getBoard(bd_num);
 		mv.addObject("board", board);
-		mv.setViewName("/board/select");
+    mv.setViewName("/board/select");
     return mv;
 	}
 	@RequestMapping(value="/board/insert", method=RequestMethod.GET)
 	public ModelAndView boardInsertGet(ModelAndView mv){
-    mv.setViewName("/board/insert");
+		mv.setViewName("/board/insert");
     return mv;
 	}
 	@RequestMapping(value="/board/insert", method=RequestMethod.POST)
 	public ModelAndView boardInsertPost(ModelAndView mv, BoardVO board, HttpSession session){
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		boardService.insertBoard(board, user);
-    mv.setViewName("redirect:/board/list");
+		boardService.insertBoard(board,user);
+		mv.setViewName("redirect:/board/list");
     return mv;
 	}
-	
-	
+	@RequestMapping(value="/board/update/{bd_num}", method=RequestMethod.GET)
+	public ModelAndView boardUpdateGet(ModelAndView mv,
+			@PathVariable("bd_num")int bd_num){
+		BoardVO board = boardService.getBoard(bd_num);
+		mv.addObject("board",board);
+    mv.setViewName("/board/update");
+    return mv;
+	}
+	@RequestMapping(value="/board/update/{bd_num}", method=RequestMethod.POST)
+	public ModelAndView boardUpdatePost(ModelAndView mv,
+			@PathVariable("bd_num")int bd_num, BoardVO board, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boardService.updateBoard(board, user);
+    mv.setViewName("redirect:/board/select/"+bd_num);
+    return mv;
+	}
 }
