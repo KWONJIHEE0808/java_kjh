@@ -25,14 +25,14 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/list", method=RequestMethod.GET)
 	public ModelAndView boardListGet(ModelAndView mv, Criteria cri){
-    cri.setPerPageNum(2);
-    int totalCount = boardService.getTotalCount();
+		cri.setPerPageNum(2);
+		int totalCount = boardService.getTotalCount(cri);
 		//등록된 게시글을 가져옴(여러개)
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		PageMaker pm = new PageMaker(cri, 5, totalCount);
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
-		mv.setViewName("/board/list");
+    mv.setViewName("/board/list");
     return mv;
 	}
 	
@@ -41,6 +41,7 @@ public class BoardController {
     mv.setViewName("/board/insert");
     return mv;
 	}
+	
 	@RequestMapping(value="/board/insert", method=RequestMethod.POST)
 	public ModelAndView boardInsertPost(ModelAndView mv, BoardVO board, 
 			HttpSession session){
@@ -56,45 +57,47 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/select/{bd_num}", method=RequestMethod.GET)
 	public ModelAndView boardSelectGet(ModelAndView mv, @PathVariable("bd_num")Integer bd_num){
-    //게시글 번호에 맞는 게시글 조회수를 증가
+		//게시글 번호에 맞는 게시글 조회수를 증가
 		boardService.updateViews(bd_num);
-		//게시글 번호에 맞는 게시글 정보를 가져오기
+		//게시글 번호에 맞는 게시글 정보를 가져옴
 		BoardVO board = boardService.getBoard(bd_num);
 		//가져온 게시글을 화면에 전달
 		mv.addObject("board", board);
-		mv.setViewName("/board/select");
+    mv.setViewName("/board/select");
     return mv;
 	}
-	
 	@RequestMapping(value="/board/update/{bd_num}", method=RequestMethod.GET)
 	public ModelAndView boardUpdateGet(ModelAndView mv, @PathVariable("bd_num")Integer bd_num){
-		//게시글 번호에 맞는 게시글 정보를 가져오기
+		//게시글 번호에 맞는 게시글 정보를 가져옴
 		BoardVO board = boardService.getBoard(bd_num);
 		//가져온 게시글을 화면에 전달
 		mv.addObject("board", board);
-		mv.setViewName("/board/update");
+    mv.setViewName("/board/update");
     return mv;
 	}
 	
 	@RequestMapping(value="/board/update/{bd_num}", method=RequestMethod.POST)
-	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable("bd_num")Integer bd_num, HttpSession session, BoardVO board){		
-		//수정한 게시글 정보 확인
+	public ModelAndView boardUpdatePost(ModelAndView mv, 
+			@PathVariable("bd_num")Integer bd_num, HttpSession session, BoardVO board){
+		//수정한 게시글 정보를 확인
 		//System.out.println(board);
-		//로그인한 회원 정보 확인
+		//로그인한 회원 정보를 확인
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		//System.out.println(user);
 		//게시글 수정 요청
 		board.setBd_num(bd_num);
 		boardService.updateBoard(board,user);
-		mv.setViewName("redirect:/board/select/"+bd_num);
+    mv.setViewName("redirect:/board/select/"+bd_num);
     return mv;
 	}
 	
 	@RequestMapping(value="/board/delete/{bd_num}", method=RequestMethod.GET)
-	public ModelAndView boardDeleteGet(ModelAndView mv, @PathVariable("bd_num")Integer bd_num, HttpSession session){
+	public ModelAndView boardDeleteGet(ModelAndView mv, 
+			@PathVariable("bd_num")Integer bd_num, HttpSession session){
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		boardService.deleteBoard(bd_num,user);
-		mv.setViewName("/board/delete");
+		boardService.deleteBoard(bd_num, user);
+		
+    mv.setViewName("redirect:/board/list");
     return mv;
 	}
 }

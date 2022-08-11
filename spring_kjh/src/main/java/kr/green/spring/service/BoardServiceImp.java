@@ -37,9 +37,8 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {
-		if(cri ==null) {
+		if(cri == null)
 			return null;
-		}
 		return boardDao.selectBoardList(cri);
 	}
 
@@ -61,8 +60,10 @@ public class BoardServiceImp implements BoardService {
 	public void updateBoard(BoardVO board, MemberVO user) {
 		if(user == null)
 			return;
+		
 		if(board == null)
 			return;
+		
 		//제목에 공백만 있는 경우
 		if(board.getBd_title().trim().length() == 0)
 			return;
@@ -77,31 +78,34 @@ public class BoardServiceImp implements BoardService {
 			return;
 		
 		boardDao.updateBoard(board);
+		
 	}
 
 	@Override
 	public void deleteBoard(Integer bd_num, MemberVO user) {
+		if(bd_num == null)
+			return;
 		if(user == null)
 			return;
-		if(bd_num == null)
-			return;		
 		
-		BoardVO board = boardDao.selectBoard(bd_num);	
-		
+		BoardVO board = boardDao.selectBoard(bd_num);
+		//해당 게시글이 없으면 
 		if(board == null)
 			return;
-		//삭제하려는 게시글의 작성자와 회원 아이디가 다르고, 관리자가 아닌 경우
+		
+		//삭제하려는 게시글의 작성자와 회원 아이디가 다르고, 관리자가 아닐때
 		if(!board.getBd_me_id().equals(user.getMe_id()) && user.getMe_authority() != 10)
 			return;
 		char del = 'Y';
 		if(user.getMe_authority() == 10)
 			del = 'A';
-		
 		boardDao.deleteBoard(bd_num, del);
 	}
 
 	@Override
-	public int getTotalCount() {
-		return boardDao.selectTotalCount();
+	public int getTotalCount(Criteria cri) {
+		if(cri == null)
+			return 0;
+		return boardDao.selectTotalCount(cri);
 	}
 }
