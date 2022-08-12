@@ -5,15 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 <style>
 .error{
-	color:red;	
+	color:red;
 }
 </style>
+
 </head>
 <body>
 	<div class="container">
@@ -23,6 +25,7 @@
 			  <label for="me_id">아이디:</label>
 			  <input type="text" class="form-control" id="me_id" name="me_id">
 			</div>
+			<button type="button" class="btn btn-outline-success col-12" id="idCheck">아이디 중복확인</button>
 			<div class="form-group">
 			  <label for="me_pw">비밀번호:</label>
 			  <input type="password" class="form-control" id="me_pw" name="me_pw">
@@ -35,99 +38,149 @@
 			  <label>성별:</label>
 			</div>
 			<div class="form-group">
-					<div class="form-check-inline">
-					  <label class="form-check-label">
-					    <input type="radio" class="form-check-input" name="me_gender" value="M">남성
-					  </label>
-					</div>
 				<div class="form-check-inline">
-					 <label class="form-check-label">
-					   <input type="radio" class="form-check-input" name="me_gender" value="F">여성
-					  </label>
-					</div>	
-					<div>
-					<label class="error" id="me_gender-error" for="me_gender"></label>
-					</div>
+				  <label class="form-check-label">
+				    <input type="radio" class="form-check-input" name="me_gender" value="M">남성
+				  </label>
 				</div>
-			<div class="form-group">
-			  	<label for="me_email">이메일:</label>
-			  	<input type="text" class="form-control" id="me_email" name="me_email">
+				<div class="form-check-inline">
+				  <label class="form-check-label">
+				    <input type="radio" class="form-check-input" name="me_gender" value="F">여성
+				  </label>
+				</div>
+				<div>
+					<label class="error" id="me_gender-error" for="me_gender"></label>
+				</div>
 			</div>
 			<div class="form-group">
-			  	<label for="me_birth">생년월일:</label>
-			  	<input type="text" class="form-control" id="me_birth" name="me_birth">
+			  <label for="me_email">이메일</label>
+			  <input type="text" class="form-control" id="me_email" name="me_email">
+			</div>
+			<div class="form-group">
+			  <label for="me_birth">생년월일</label>
+			  <input type="text" class="form-control" id="me_birth" name="me_birth">
 			</div>
 			<button class="btn btn-outline-success col-12 mb-5">회원가입</button>
 		</form>
 	</div>
+	
 	<script type="text/javascript">
 		$(function(){
 			$( "#me_birth" ).datepicker({
-				changeMonth:true,
-				changeYear:true,
-				dateFormat:'yy-mm-dd',
-				yearRange:"1900:2022"
-			});		
+	      changeMonth: true,
+	      changeYear: true,
+	      dateFormat: 'yy-mm-dd',
+	      yearRange: "1900:2022"
+			});
 		})
 		
 		$(function(){
-		    $("form").validate({
-		        rules: {
-		            me_id: {
-		                required : true
-		            },
-		            me_pw: {
-		                required : true
-		            },
-		            me_pw2: {
-		                required : true,
-		                equalTo : me_pw
-		            },
-		            me_gender: {
-		                required : true
-		            },
-		            me_email: {
-		            	required : true,
-		            	email : true
-		            },
-		            me_birth: {
-		                required : true
-		            }
-		        },
-		        //규칙체크 실패시 출력될 메시지
-		        messages : {
-		            me_id: {
-		                required : "필수항목입니다."
-		            },
-		            me_pw: {
-		                required : "필수항목입니다."
-		            },
-		            me_pw2: {
-		                required : "필수항목입니다.",
-		                equalTo : "비밀번호가 일치하지 않습니다."
-		            },
-		            me_gender: {
-		                required : "필수항목입니다."
-		            },
-		            me_email: {
-		            	required : "필수항목입니다.",
-		            	email : "이메일 형식에 맞지 않습니다."
-		            },
-		            me_birth: {
-		            	required : "필수항목입니다."
-		            }
-		        }
-		    });
+    	$("form").validate({
+        rules: {
+          me_id: {
+            required : true
+          },
+          me_pw: {
+            required : true
+          },
+          me_pw2: {
+            required : true,
+            equalTo : me_pw
+          },
+          me_gender: {
+            required : true
+          },
+          me_email: {
+            required : true,
+            email : true
+          },
+          me_birth: {
+            required : true
+          }
+        },
+        //규칙체크 실패시 출력될 메시지
+        messages : {
+          me_id: {
+            required : "필수항목입니다."
+          },
+          me_pw: {
+        	  required : "필수항목입니다."
+          },
+          me_pw2: {
+        	  required : "필수항목입니다.",
+            equalTo : "비밀번호와 비밀번호 확인이 일치하지 않습니다."
+          },
+          me_gender: {
+        	  required : "필수항목입니다."
+          },
+          me_email: {
+        	  required : "필수항목입니다.",
+        	  email : "이메일 형식에 맞지 않습니다."
+          },
+          me_birth: {
+        	  required : "필수항목입니다."
+          }
+        },
+        submitHandler: function(form) {
+        	if(!idCheck){
+						alert('아이디 중복 검사를 하세요.');
+						return false;
+					}  
+          return true;
+        }
+    	});
 		})
 		$.validator.addMethod(
-		    "regex",
-		    function(value, element, regexp) {
-		        var re = new RegExp(regexp);
-		        return this.optional(element) || re.test(value);
-		    },
-		    "Please check your input."
+	    "regex",
+	    function(value, element, regexp) {
+	        var re = new RegExp(regexp);
+	        return this.optional(element) || re.test(value);
+	    },
+	    "Please check your input."
 		);
+		
+		$(function(){
+			$('#idCheck').click(function(){
+				let id = $('[name=me_id]').val()
+				
+				if(id.trim().length == 0){
+					alert('아이디를 입력하세요.');
+					return;
+				}
+				
+				let obj = {
+					me_id : id
+				}
+				$.ajax({
+	        async:false,
+	        type:'POST',
+	        data: JSON.stringify(obj),
+	        url: '<%=request.getContextPath()%>/id/check',
+	        dataType:"json", 
+	        contentType:"application/json; charset=UTF-8",
+	        success : function(data){
+	        	if(data){
+	        		alert('가입 가능한 아이디입니다.');
+	        		idCheck = true;
+	        	}else{
+	        		alert('이미 사용중이거나 탈퇴한 아이디입니다.');
+	        	}
+	        }
+		    });
+			})
+			$('[name=me_id]').change(function(){
+				idCheck = false;
+			})
+			/*
+			$('form').submit(function(){
+				if(!idCheck){
+					alert('아이디 중복 검사를 하세요.');
+					return false;
+				}
+			})
+			*/
+		})
+		let idCheck = false;
 	</script>
-	
 </body>
 </html>
