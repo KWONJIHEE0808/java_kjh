@@ -5,22 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Datepicker - Display month &amp; year menus</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true,
-      dateFormat: "yy-mm-dd"
-    });
-  } );
-  </script>
 </head>
 <body>
 	<div class="container">
@@ -30,6 +14,7 @@
 			  <label for="me_id">아이디:</label>
 			  <input type="text" class="form-control" id="me_id" name="me_id">
 			</div>
+			<button class="btn btn-outline-success col-12" type="button" id="idCheck">아이디 중복 확인</button>
 			<div class="form-group">
 			  <label for="me_pw">비밀번호:</label>
 			  <input type="password" class="form-control" id="me_pw" name="me_pw">
@@ -38,23 +23,75 @@
 			  <label for="me_pw2">비밀번호 확인:</label>
 			  <input type="password" class="form-control" id="me_pw2" name="me_pw2">
 			</div>
-			<div class="form-check-inline">
-			  <label class="form-check-label">
-			    <input type="checkbox" class="form-check-input" value="M" name="me_gender">남성
-			  </label>
-			</div>
-			<div class="form-check-inline">
-			  <label class="form-check-label">
-			    <input type="checkbox" class="form-check-input" value="F" name="me_gender">여성
-			  </label>
-			</div>
-			<p>생년월일: <input type="text" id="datepicker" name="me_birth"></p>
 			<div class="form-group">
 			  <label for="me_email">이메일:</label>
 			  <input type="text" class="form-control" id="me_email" name="me_email">
-			</div>		
+			</div>
+			<div class="form-group">
+			  <label for="me_birth">생일:</label>
+			  <input type="text" class="form-control" id="me_birth" name="me_birth">
+			</div>
+			<div class="form-group">
+				<div class="form-check-inline">
+				  <label class="form-check-label">
+				    <input type="radio" class="form-check-input" name="me_gender" value="M">남성
+				  </label>
+				</div>
+				<div class="form-check-inline">
+				  <label class="form-check-label">
+				    <input type="radio" class="form-check-input" name="me_gender" value="F">여성
+				  </label>
+				</div>
+			</div>
 			<button class="btn btn-outline-success col-12">회원가입</button>
 		</form>
 	</div>
+	<script type="text/javascript">
+	let idCheck = false;
+	
+	$(function(){
+		$('#idCheck').click(function(){
+			let me_id = $('[name=me_id]').val();
+			if(me_id.trim().length == 0){
+				alert('아이디를 입력하세요.')
+				return;
+			}
+			
+			let obj = {
+					me_id : me_id
+			}
+			
+			$.ajax({
+	      async:false,
+	      type:'POST',
+	      data:JSON.stringify(obj),
+	      url:"<%=request.getContextPath()%>/id/check",
+	      dataType:"json",
+	      contentType:"application/json; charset=UTF-8",
+	      success : function(data){
+	    	  //data.check
+	    	  //data['check']
+          if(data.check){
+        	  alert('사용 가능한 아이디입니다.')
+        	  idCheck = true;
+          }else{
+        	  alert('이미 사용중인 아이디입니다.')
+          }
+	      }
+		  });
+		});
+		
+		$('[name=me_id]').change(function(){
+			idCheck = false;
+		})
+		$('form').submit(function(){
+			if(idCheck)
+				return true;
+			
+			alert('아이디 중복검사를 확인하세요.')
+			return false;
+		})	
+	})
+	</script>
 </body>
 </html>
