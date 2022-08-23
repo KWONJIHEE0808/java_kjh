@@ -30,4 +30,6 @@ public interface BoardService {
 
 	boolean insertComment(CommentVO comment, MemberVO user);
 
+	ArrayList<CommentVO> getCommentList(int bd_num, Criteria cri);
+
 }
