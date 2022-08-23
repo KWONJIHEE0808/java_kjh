@@ -32,4 +32,6 @@ public interface BoardService {
 
 	ArrayList<CommentVO> getCommentList(int bd_num, Criteria cri);
 
+	int getCommentTotalCount(int bd_num);
+
 }
