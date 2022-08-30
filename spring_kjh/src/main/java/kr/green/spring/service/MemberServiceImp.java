@@ -1,14 +1,20 @@
 package kr.green.spring.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import kr.green.spring.dao.MemberDAO;
 import kr.green.spring.vo.MemberVO;
@@ -67,7 +73,7 @@ public class MemberServiceImp implements MemberService {
 		//가입된 아이디가 아니면
 		if(dbMember == null)
 			return null;
-		
+		dbMember.setAutoLogin(member.isAutoLogin());
 		//아이디, 비번이 일치하는 경우
 		//matches(암호화안된비번, 암호화된비번)
 		if(passwordEncoder.matches(member.getMe_pw(), dbMember.getMe_pw()))
@@ -105,7 +111,7 @@ public class MemberServiceImp implements MemberService {
       messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
       messageHelper.setTo(email);     // 받는사람 이메일
       messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-      messageHelper.setText(content);  // 메일 내용
+      messageHelper.setText(content,true);  // 메일 내용
 
       mailSender.send(message);
     } catch(Exception e){
@@ -161,28 +167,61 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public void updateMember(MemberVO member, MemberVO user) {
-		if(member == null || user == null || member.getMe_id() == null) {
+		if(member == null || user == null || member.getMe_id() == null)
 			return;
-		}
-		//화면에서 보낸 아이디와 로그인한 아이디가 다르면 회원정보 수정안함
-		if(!member.getMe_id().equals(user.getMe_id())) {
+		//화면에서 보낸 아이디와 로그인한 아이디가 다르면 회원정보 수정을 안함
+		if(!member.getMe_id().equals(user.getMe_id()))
 			return;
-		}
 		
 		user.setMe_birth(member.getMe_birth());
 		user.setMe_gender(member.getMe_gender());
 		user.setMe_email(member.getMe_email());
 		
-		if(member.getMe_authority() != 0) {
+		if(member.getMe_authority() != 0)
 			user.setMe_authority(member.getMe_authority());
-		}
-		
 		//비밀번호가 있으면 암호화하여 저장
 		if(member.getMe_pw() != null && member.getMe_pw().length() != 0) {
 			String encPw = passwordEncoder.encode(member.getMe_pw());
 			user.setMe_pw(encPw);
 		}
 		memberDao.updateMember(user);
+	}
+
+	@Override
+	public void keepLogin(String me_id, String me_session_id, Date me_session_limit) {
+		if(me_id == null || me_session_id == null || me_session_limit == null)
+			return;
+		memberDao.updateMemberSession(me_id, me_session_id, me_session_limit);
+	}
+
+	@Override
+	public MemberVO autoLogin(String session_id) {
+		if(session_id == null)
+			return null;
+		return memberDao.selectMemberBySession(session_id);
+	}
+
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		if(request == null)
+			return;
+		HttpSession session = request.getSession();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user == null)
+			return ;
+		session.removeAttribute("user");
+		
+		if(response == null)
+			return;
+		
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		if(loginCookie == null)
+			return ;
+		loginCookie.setPath("/");
+		loginCookie.setMaxAge(0);
+		response.addCookie(loginCookie);
+		keepLogin(user.getMe_id(), null, null);
 	}
 	
 }
