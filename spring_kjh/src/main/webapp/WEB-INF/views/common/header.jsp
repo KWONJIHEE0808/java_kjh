@@ -10,29 +10,34 @@
   	<div class="collapse navbar-collapse" id="collapsibleNavbar">
     	<ul class="navbar-nav">
     		<c:if test="${user == null }">
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/login">로그인</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/signup">회원가입</a>
+		      	</li>
+	      	</c:if>
+	      	<c:if test="${user != null }">
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/logout">로그아웃</a>
+		      	</li> 
+		      	<li class="nav-item">
+	        	<a class="nav-link" href="<c:url value="/user/update"></c:url>">회원정보수정</a>
+	      		</li> 
+	      	</c:if>  
 	      	<li class="nav-item">
-	        	<a class="nav-link" href="<%=request.getContextPath()%>/login">로그인</a>
-	      	</li>
+	        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list">게시글</a>
+	      	</li>  
 	      	<li class="nav-item">
-	        	<a class="nav-link" href="<%=request.getContextPath()%>/signup">회원가입</a>
-	      	</li>
-	      </c:if>
-	      <c:if test="${user != null }">
-	      	<li class="nav-item">
-	        	<a class="nav-link" href="<%=request.getContextPath()%>/logout">로그아웃</a>
+	        	<a class="nav-link" href="<c:url value="/board/list2"></c:url>">게시글(ajax)</a>
 	      	</li> 
-	      	<li class="nav-item">
-        	<a class="nav-link" href="<c:url value="/user/update"></c:url>">회원정보수정</a>
-      		</li> 
-      	</c:if>  
-      	<li class="nav-item">
-        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list">게시글</a>
-      	</li>  
-      	<li class="nav-item">
-        	<a class="nav-link" href="<c:url value="/board/list2"></c:url>">게시글(ajax)</a>
-      	</li> 
+	      	<c:if test="${user != null && user.me_authority >= 8}">
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="<c:url value="/admin/user/list"></c:url>">회원등급관리</a>
+		      	</li> 	
+	      	</c:if>
     	</ul>
-		</div> 
+	</div> 
    	<c:if test="${user != null }">
    		<a href="javascript:0;" class="float-right" style="color:#fff;">${user.me_id}님 환영합니다.</a>
    	</c:if>
