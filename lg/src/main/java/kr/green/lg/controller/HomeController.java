@@ -1,7 +1,11 @@
 package kr.green.lg.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.lg.service.MemberService;
+import kr.green.lg.service.ProductService;
+import kr.green.lg.vo.CategoryVO;
 import kr.green.lg.vo.MemberVO;
 
 @Controller
@@ -69,6 +75,13 @@ public class HomeController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/logout")
+	public ModelAndView logout(ModelAndView mv, HttpServletRequest request,
+			HttpServletResponse response) {
+		memberService.logout(request,response);
+		mv.setViewName("redirect:/");
+		return mv;
+	}
 	//ajax
 	@RequestMapping(value="/check/email", method = RequestMethod.POST)
 	@ResponseBody
@@ -78,4 +91,5 @@ public class HomeController {
 		map.put("res", res);
 		return map;
 	}
+	
 }
