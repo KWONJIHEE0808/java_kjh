@@ -33,6 +33,7 @@
 				      <a class="dropdown-item" href="<c:url value="/login"></c:url>">로그인</a>
 			      </c:if>
 			      <c:if test="${user != null }">
+			      	<a class="dropdown-item" href="<c:url value="/likes/list"></c:url>">찜 목록</a>
 				      <a class="dropdown-item" href="<c:url value="/mypage"></c:url>">회원정보수정</a>
 				      <a class="dropdown-item" href="<c:url value="/logout"></c:url>">로그아웃</a>
 			      </c:if>
@@ -41,6 +42,11 @@
 			  <c:if test="${user.me_authority == 10 }">
 	      	<li class="nav-item">
 	        	<a class="nav-link" href="<c:url value="/admin"></c:url>">관리자</a>
+	      	</li>
+      	</c:if>
+      	<c:if test="${user.me_authority != 10 }">
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="<c:url value="/board/list?bd_type=NOTICE"></c:url>">공지사항</a>
 	      	</li>
       	</c:if>
     	</ul>
