@@ -13,7 +13,7 @@
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
-	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+	  <div class="collapse navbar-collapse" id="collapsibleNavbar" >
 	    <ul class="navbar-nav">
 	    	<c:if test="${user == null }">
 		      <li class="nav-item">
@@ -27,7 +27,10 @@
 		      <li class="nav-item">
 		        <a class="nav-link" href="<c:url value="/logout"></c:url>">로그아웃</a>
 		      </li>  
-		    </c:if>  
+		    </c:if> 
+		    <li class="nav-item">
+		        <a class="nav-link" href="<c:url value="/board/list"></c:url>">게시판</a>
+		    </li> 
 	    </ul>
 	  </div>  
 	</nav>
